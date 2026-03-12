@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Ali'yi Puanla!</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            text-align: center; 
+            background-color: #1a1a2e; 
+            color: #ffffff; 
+            margin: 0;
+            padding: 50px 20px;
+        }
+        .card { 
+            background: #16213e; 
+            padding: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            display: inline-block;
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 { color: #00d2ff; margin-bottom: 10px; }
+        p { color: #95a5a6; margin-bottom: 30px; }
+        
+        /* Yıldız Sistemi */
+        .rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+        }
+        .rating input { display: none; }
+        .rating label {
+            font-size: 60px;
+            color: #444;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .rating label:hover,
+        .rating label:hover ~ label,
+        .rating input:checked ~ label {
+            color: #f1c40f;
+            text-shadow: 0 0 20px rgba(241, 196, 15, 0.5);
+        }
+
+        .submit-btn {
+            margin-top: 40px;
+            background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .submit-btn:active { transform: scale(0.95); }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>🤖 Robot Ali</h1>
+    <p>Performansımı beğendiniz mi? Lütfen puan verin!</p>
+    
+    <div class="rating">
+        <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+        <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+        <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+        <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+        <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+    </div>
+
+    <button class="submit-btn" onclick="sendRating()">Puanı Gönder</button>
+</div>
+
+<script>
+    function sendRating() {
+        const rating = document.querySelector('input[name="rating"]:checked');
+        if (!rating) {
+            alert("Lütfen bir yıldız seçin!");
+            return;
+        }
+
+        // --- BURAYI KENDİ BİLGİLERİNE GÖRE DÜZENLE ---
+        const username = "KULLANICI_ADIN"; 
+        const repo = "REPO_ADIN";
+        // ------------------------------------------
+
+        const ratingValue = rating.value;
+        const title = encodeURIComponent("Rating: " + ratingValue);
+        const body = encodeURIComponent("Robot Ali'ye " + ratingValue + " yıldız verildi! 🌟");
+        
+        const githubIssueUrl = `https://github.com/${username}/${repo}/issues/new?title=${title}&body=${body}`;
+        
+        // Kullanıcıyı GitHub Issue sayfasına yönlendirir
+        window.location.href = githubIssueUrl;
+    }
+</script>
+
+</body>
+</html>
